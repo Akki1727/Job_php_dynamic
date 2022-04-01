@@ -9,7 +9,7 @@ $result = $conn->query($veiw_sql);
 
 if (isset($_GET['search'])) {
   $name_search = $_GET['name_search'];
-  $search_sql = 'SELECT * FROM  basic_info  WHERE fname LIKE "%' . $name_search . '%" GROUP BY id';
+  $search_sql = 'SELECT *, CONCAT(fname," ", lname) AS full_name  FROM  basic_info GROUP BY id HAVING full_name LIKE "%'.$name_search.'%"';
   echo $search_sql;
   $search_result = $conn->query($search_sql);
   if ($search_result == true) {
@@ -18,6 +18,8 @@ if (isset($_GET['search'])) {
     echo "Error...." . $search_sql . "------------>" . $search_result . "-------->" . $conn->error;
   }
 }
+
+
 
 
 
